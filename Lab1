@@ -1,0 +1,56 @@
+//Nur Adlin Aliya
+//24003411
+//G2
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+struct Student {
+    string name;
+    string id;
+    string phoneNumber;
+    string email;
+};
+
+void displayStudent(const Student& s) {
+    cout << left << setw(20) << "Name:" << s.name << endl;
+    cout << left << setw(20) << "ID:" << s.id << endl;
+    cout << left << setw(20) << "Phone Number:" << s.phoneNumber << endl;
+    cout << left << setw(20) << "Email:" << s.email << endl;
+    cout << "-----------------------------" << endl;
+}
+
+int main() {
+    const int NUM_STUDENTS = 5;
+    Student students[NUM_STUDENTS];
+
+    cout << "Enter information for 5 students:\n";
+
+    for (int i = 0; i < NUM_STUDENTS; ++i) {
+        cout << "\nStudent " << i + 1 << ":\n";
+        
+        cout << "Enter name: ";
+        getline(cin, students[i].name);
+        
+        cout << "Enter ID: ";
+        getline(cin, students[i].id);
+        
+        cout << "Enter phone number: ";
+        getline(cin, students[i].phoneNumber);
+        
+        cout << "Enter email: ";
+        getline(cin, students[i].email);
+    }
+
+    cout << "\n\nStudent Information:\n";
+    cout << "=====================\n\n";
+    
+    for (int i = 0; i < NUM_STUDENTS; ++i) {
+        cout << "Student " << i + 1 << ":\n";
+        displayStudent(students[i]);
+    }
+
+    return 0;
+}
