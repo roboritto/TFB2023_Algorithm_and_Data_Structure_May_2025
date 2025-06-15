@@ -1,0 +1,119 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Node class to hold the data
+class Node {
+public:
+    string name;
+    Node* next;
+
+    // Constructor
+    Node(const string& name) : name(name), next(nullptr) {}
+};
+
+// Linked list class
+class NameLinkedList {
+private:
+    Node* head;
+    Node* tail;
+    int size;
+
+public:
+    // Constructor
+    NameLinkedList() : head(nullptr), tail(nullptr), size(0) {}
+
+    // Destructor to free memory
+    ~NameLinkedList() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+
+    // Add a name to the end of the list
+    void add(const string& name) {
+        Node* newNode = new Node(name);
+        
+        if (head == nullptr) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    // Remove a name by value (first occurrence)
+    void remove(const string& name) {
+        if (head == nullptr) return;
+
+        if (head->name == name) {
+            Node* toDelete = head;
+            head = head->next;
+            if (head == nullptr) tail = nullptr;
+            delete toDelete;
+            size--;
+            return;
+        }
+
+        Node* current = head;
+        while (current->next != nullptr && current->next->name != name) {
+            current = current->next;
+        }
+
+        if (current->next != nullptr) {
+            Node* toDelete = current->next;
+            current->next = toDelete->next;
+            if (toDelete == tail) tail = current;
+            delete toDelete;
+            size--;
+        }
+    }
+
+    // Display all names in the list
+    void display() const {
+        Node* current = head;
+        cout << "Names in the list (" << size << "): ";
+        while (current != nullptr) {
+            cout << current->name;
+            if (current->next != nullptr) cout << " -> ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
+    // Get the size of the list
+    int getSize() const {
+        return size;
+    }
+
+    // Check if the list is empty
+    bool isEmpty() const {
+        return size == 0;
+    }
+};
+
+int main() {
+    NameLinkedList nameList;
+
+    // Adding names to the list
+    nameList.add("Alice");
+    nameList.add("Bob");
+
+    // Display the list
+    nameList.display();
+
+    // Remove a name
+    nameList.remove("Bob");
+    nameList.display();
+
+    // Add more names
+    nameList.add("David");
+    nameList.display();
+
+    return 0;
+}
