@@ -14,7 +14,7 @@ public:
 };
 
 // Linked list class
-class NameLinkedList {
+class LinkedList {
 private:
     Node* head;
     Node* tail;
@@ -22,10 +22,10 @@ private:
 
 public:
     // Constructor
-    NameLinkedList() : head(nullptr), tail(nullptr), size(0) {}
+    LinkedList() : head(nullptr), tail(nullptr), size(0) {}
 
     // Destructor to free memory
-    ~NameLinkedList() {
+    ~LinkedList() {
         Node* current = head;
         while (current != nullptr) {
             Node* next = current->next;
@@ -98,22 +98,22 @@ public:
 };
 
 int main() {
-    NameLinkedList nameList;
+    LinkedList list;
 
     // Adding names to the list
-    nameList.add("Alice");
-    nameList.add("Bob");
+    list.add("Alice");
+    list.add("Bob");
 
     // Display the list
-    nameList.display();
+    list.display();
 
     // Remove a name
-    nameList.remove("Bob");
-    nameList.display();
+    list.remove("Bob");
+    list.display();
 
     // Add more names
-    nameList.add("David");
-    nameList.display();
+    list.add("David");
+    list.display();
 
     return 0;
 }
