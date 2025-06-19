@@ -3,7 +3,6 @@
 
 using namespace std;
 
-// Node class to hold the data
 class Node {
 public:
     string name;
@@ -24,17 +23,7 @@ public:
     // Constructor
     LinkedList() : head(nullptr), tail(nullptr), size(0) {}
 
-    // Destructor to free memory
-    ~LinkedList() {
-        Node* current = head;
-        while (current != nullptr) {
-            Node* next = current->next;
-            delete current;
-            current = next;
-        }
-    }
-
-    // Add a name to the end of the list
+    // Add a name
     void add(const string& name) {
         Node* newNode = new Node(name);
         
@@ -47,7 +36,7 @@ public:
         size++;
     }
 
-    // Remove a name by value (first occurrence)
+    // Remove a name from the back
     void remove(const string& name) {
         if (head == nullptr) return;
 
@@ -85,16 +74,6 @@ public:
         }
         cout << endl;
     }
-
-    // Get the size of the list
-    int getSize() const {
-        return size;
-    }
-
-    // Check if the list is empty
-    bool isEmpty() const {
-        return size == 0;
-    }
 };
 
 int main() {
@@ -103,15 +82,6 @@ int main() {
     // Adding names to the list
     list.add("Alice");
     list.add("Bob");
-
-    // Display the list
-    list.display();
-
-    // Remove a name
-    list.remove("Bob");
-    list.display();
-
-    // Add more names
     list.add("David");
     list.display();
 
