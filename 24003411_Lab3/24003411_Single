@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 
@@ -38,8 +39,6 @@ public:
 
     // Remove a name from the back
     void remove(const string& name) {
-        if (head == nullptr) return;
-
         if (head->name == name) {
             Node* toDelete = head;
             head = head->next;
@@ -50,7 +49,7 @@ public:
         }
 
         Node* current = head;
-        while (current->next != nullptr && current->next->name != name) {
+        while (current->next != nullptr && current->name != name) {
             current = current->next;
         }
 
@@ -83,6 +82,7 @@ int main() {
     list.add("Alice");
     list.add("Bob");
     list.add("David");
+    list.remove("Alice");
     list.display();
 
     return 0;
