@@ -1,89 +1,86 @@
-
 #include <iostream>
 #include <string>
-
 using namespace std;
+ 
 
 class Node {
-public:
-    string name;
-    Node* next;
-
-    // Constructor
-    Node(const string& name) : name(name), next(nullptr) {}
+	public:
+    	string name;
+        Node* pointer;
+        
+        Node(const string& name) : name(name), pointer(nullptr) {}
 };
 
-// Linked list class
 class LinkedList {
-private:
-    Node* head;
-    Node* tail;
-    int size;
-
-public:
-    // Constructor
-    LinkedList() : head(nullptr), tail(nullptr), size(0) {}
-
-    // Add a name
-    void add(const string& name) {
-        Node* newNode = new Node(name);
+	private:
+    	Node* first;
+        Node* last;
+        int size;
         
-        if (head == nullptr) {
-            head = tail = newNode;
-        } else {
-            tail->next = newNode;
-            tail = newNode;
+	public:
+    	LinkedList() : first(nullptr), last(nullptr), size(0) {}
+        
+        void add(const string& name) {
+        	Node* toAdd = new Node(name);
+            
+            if (first == nullptr) {
+            	first = last = toAdd;
+            } else {
+            	last->pointer = toAdd;
+                last = toAdd;
+            }
+            
+            size++;
         }
-        size++;
-    }
-
-    // Remove a name from the back
-    void remove(const string& name) {
-        if (head->name == name) {
-            Node* toDelete = head;
-            head = head->next;
-            if (head == nullptr) tail = nullptr;
-            delete toDelete;
-            size--;
-            return;
+        
+        void remove(const string& name) {
+        	if (first->name == name) {
+            	Node* toDelete = first;
+                first = first->pointer;
+                if (first == nullptr) 
+                	last = nullptr;
+                delete toDelete;
+                size--;
+                return;
+            }
+            
+            Node* current = first;
+            while (current->pointer != nullptr && current->name != name) {
+            	current = current->pointer;
+            }
+            
+            if (current->pointer != nullptr) {
+            	Node* toDelete = current->pointer;
+                current->pointer = toDelete->pointer;
+                if (toDelete == last)
+                	last = current;
+                delete toDelete;
+                size--;
+            }
         }
-
-        Node* current = head;
-        while (current->next != nullptr && current->name != name) {
-            current = current->next;
+        
+        void display () {
+        	Node* current = first;
+            while (current != nullptr) {
+            	cout << current->name;
+                
+                if (current->pointer != nullptr) 
+                	cout << "->";
+                current = current->pointer;
+            }
+            
+            cout << endl;
         }
-
-        if (current->next != nullptr) {
-            Node* toDelete = current->next;
-            current->next = toDelete->next;
-            if (toDelete == tail) tail = current;
-            delete toDelete;
-            size--;
-        }
-    }
-
-    // Display all names in the list
-    void display() const {
-        Node* current = head;
-        cout << "Names in the list (" << size << "): ";
-        while (current != nullptr) {
-            cout << current->name;
-            if (current->next != nullptr) cout << " -> ";
-            current = current->next;
-        }
-        cout << endl;
-    }
 };
 
 int main() {
-    LinkedList list;
-
-    // Adding names to the list
-    list.add("Alice");
-    list.add("Bob");
-    list.add("David");
-    list.remove("Alice");
+	LinkedList list;
+    
+    list.add("Adlin");
+    list.add("Aliya");
+    list.add("Fakri");
+    list.remove("Adlin");
     list.display();
-
+    
     return 0;
 }
