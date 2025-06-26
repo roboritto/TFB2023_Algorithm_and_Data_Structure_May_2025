@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Node {
+public:
+    string name;
+    Node* next;
+    
+    Node(const string& name) : name(name), next(nullptr) {}
+};
+
+class CircularLinkedList {
+private:
+    Node* last;
+    int size;
+    
+public:
+    CircularLinkedList() : last(nullptr), size(0) {}
+    
+    void add(const string& name) {
+        Node* toAdd = new Node(name);
+        
+        if (last == nullptr) {
+          last = toAdd;
+          last->next = last;
+        } else {
+            toAdd->next = last->next;
+            last->next = toAdd;
+            last = toAdd;
+        }
+        size++;
+    }
+    
+    void remove(const string& name) {
+      Node* current = last->next;
+      Node* prev = last;
+      
+      do {
+        prev = current;
+        current = current->next;
+        } while (current->name != last->next->name);
+        
+        if (current->name == last->next->name) {
+          last->next = current->next;
+          delete current;
+        } else if (current->name == last->name) {
+          prev->next = last->next;
+          last = prev;
+          delete current;
+        } else {
+          prev->next = current->next;
+          delete current;
+      }
+        
+      size--;
+    }
+    
+    void display() {
+        Node* current = last->next;
+        string first = current->name;
+        do {
+          cout << "->" << current->name;
+          current = current->next;
+          
+        } while (current->name != last->next->name);
+        
+        cout << "->" << first << "->" << endl;
+    }
+};
+
+int main() {
+    CircularLinkedList cll;
+    
+    cll.add("Adlin");
+    cll.add("Aliya");
+    cll.add("Fakri");
+    cll.remove("Adlin");
+    cll.add("Zaki");
+    cll.display();
+    
+    return 0;
+}
