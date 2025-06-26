@@ -1,0 +1,101 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Node {
+public:
+    string name;
+    Node* next;
+    Node* prev;
+    
+    Node(const string& name) : name(name), next(nullptr), prev(nullptr) {}
+};
+
+class DoublyCircularLinkedList {
+private:
+    Node* head;
+    int size;
+    
+public:
+    DoublyCircularLinkedList() : head(nullptr), size(0) {}
+    
+    void add(const string& name) {
+      Node* newNode = new Node(name);
+      
+      if (head == nullptr) {
+        head = newNode;
+        head->next = head;
+        head->prev = head;
+      } else {
+        newNode->next = head;
+        newNode->prev = head->prev;
+        head->prev->next = newNode;
+        head->prev = newNode;
+      }
+      
+      size++;
+    }
+    
+    void remove(const string& name) {
+      Node* current = head;
+      bool found = false;
+      
+      do {
+        if (current->name == name) {
+          found = true;
+          break;
+        }
+        
+        current = current->next;
+      } while (current != head);
+      
+      if (!found) {
+        cout << name << " not found in the list!" << endl;
+        return;
+      }
+      
+      if (current->next == current) {
+        delete current;
+        head = nullptr;
+      } else {
+        current->prev->next = current->next;
+        current->next->prev = current->prev;
+        
+        if (current == head) {
+          head = head->next;
+        }
+        
+        delete current;
+      }
+        
+      size--;
+    }
+    
+    void display() {
+      Node* current = head;
+      string first = current->name;
+      
+      do {
+        cout << current->name;
+        current = current->next;
+        
+        if (current != head) {
+          cout << " <-> ";
+        }
+      } while (current != head);
+      
+      cout << "<->" << first << endl;
+    }
+};
+
+int main() {
+    DoublyCircularLinkedList dcll;
+    
+    dcll.add("Adlin");
+    dcll.add("Aliya");
+    dcll.add("Fakri");
+    dcll.remove("Aliya");
+    dcll.display();
+    
+    return 0;
+}
