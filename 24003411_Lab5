@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Node {
+public:
+    string name;
+    Node* next;
+    
+    Node(const string& name) : name(name), next(nullptr) {}
+};
+
+class Stack {
+private:
+    Node* top;
+    int size;
+    
+public:
+    Stack() : top(nullptr), size(0) {}
+    
+    ~Stack() {
+      while (!isEmpty()) {
+        pop();
+      }
+    }
+    
+    void push(const string& name) {
+      Node* toAdd = new Node(name);
+      toAdd->next = top;
+      top = toAdd;
+      size++;
+    }
+    
+    void pop() {
+      Node* temp = top;
+      top = top->next;
+      delete temp;
+      size--;
+    }
+    
+    string peek() {
+      return top->name;
+    }
+    
+    bool isEmpty() {
+      return top == nullptr;
+    }
+    
+    void display() {
+      Node* current = top;
+      while (current != nullptr) {
+        cout << current->name;
+        
+        if (current->next != nullptr) {
+          cout << " -> ";
+        }
+        
+        current = current->next;
+      }
+      
+      cout << endl;
+    }
+};
+
+int main() {
+    Stack stack;
+    
+    stack.push("First");
+    stack.push("Second");
+    stack.push("Third");
+    stack.display();
+    
+    return 0;
+}
