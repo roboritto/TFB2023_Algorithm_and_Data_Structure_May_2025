@@ -3,4 +3,4 @@ Nur Adlin Aliya bt Fakri Zaki
 
 |Lab|Task|
 |---|----|
-|Lab 1|<a>Lab 1</a>https://github.com/roboritto/TFB2023_Algorithm_and_Data_Structure_May_2025/blob/main/24003411_Lab1|
+|Lab 1|<a>Lab 1</a><href>https://github.com/roboritto/TFB2023_Algorithm_and_Data_Structure_May_2025/blob/main/24003411_Lab1</href>|
