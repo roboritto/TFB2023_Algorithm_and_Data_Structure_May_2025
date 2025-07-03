@@ -1,0 +1,77 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Node {
+public:
+    string name;
+    Node* next;
+    
+    Node(const string& name) : name(name), next(nullptr) {}
+};
+
+class Queue {
+private:
+    Node* front;
+    Node* end;
+    int size;
+    
+public:
+    Queue() : front(nullptr), end(nullptr), size(0) {}
+    
+    void enqueue(const string& name) {
+        Node* toAdd = new Node(name);
+        
+        if (front == nullptr) {
+            front = end = toAdd;
+        } else {
+            end->next = toAdd;
+            end = toAdd;
+        }
+        size++;
+    }
+    
+    void dequeue(const string& name) {
+        if (front->name == name) {
+            Node* toDelete = front;
+            front = front->next;
+            
+            if (front == nullptr) {
+                end = nullptr; 
+            }
+            
+            delete toDelete;
+            size--;
+            return;
+        }
+        
+        if (front->name != name) {
+            cout << "Error, cannot delete\n";
+        }
+    }
+    
+    void display() {
+      Node* current = front;
+        while (current != nullptr) {
+            cout << current->name;
+            if (current->next != nullptr) {
+                cout << " -> ";
+            }
+            current = current->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Queue q;
+    
+    q.enqueue("Adlin");
+    q.enqueue("Aliya");
+    q.enqueue("Fakri");
+    q.dequeue("Adlin");
+    q.dequeue("Fakri");
+    q.display();
+    
+    return 0;
+}
