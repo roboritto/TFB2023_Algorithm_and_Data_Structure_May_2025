@@ -66,30 +66,35 @@ int main() {
     
     Queue q(userCapacity);
     
-    int choice;
-    cout << "\nInput operation: \n1. Enqueue \n2. Dequeue \n3. Display";
-    cin >> choice;
-    
-    switch (choice) {
-      case 1: {
-        string input;
-        cout << "\nInput:";
-        cin >> input;
-        q.enqueue(input);
+    while (true) {
+      int choice;
+      cout << "\nInput operation: \n1. Enqueue \n2. Dequeue \n3. Display \n4. Exit \nChoice: ";
+      cin >> choice;
+      
+      if (choice == 4)
         break;
+      
+      switch (choice) {
+        case 1: {
+          string input;
+          cout << "\nInput:";
+          cin >> input;
+          q.enqueue(input);
+          break;
+        }
+        
+        case 2: {
+          q.dequeue();
+          break;
+        }
+        
+        case 3:
+          q.display();
+          break;
+        
+        default:
+          cout << "\nInvalid choice" << endl;
       }
-      
-      case 2: {
-        q.dequeue();
-        break;
-      }
-      
-      case 3:
-        q.display();
-        break;
-      
-      default:
-        cout << "\nInvalid choice" << endl;
     }
     return 0;
 }
