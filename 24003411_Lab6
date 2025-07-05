@@ -2,76 +2,94 @@
 #include <string>
 using namespace std;
 
-class Node {
-public:
-    string name;
-    Node* next;
-    
-    Node(const string& name) : name(name), next(nullptr) {}
-};
-
 class Queue {
 private:
-    Node* front;
-    Node* end;
+    string* arr;
+    int front;
+    int end;
     int size;
+    int capacity;
     
 public:
-    Queue() : front(nullptr), end(nullptr), size(0) {}
-    
-    void enqueue(const string& name) {
-        Node* toAdd = new Node(name);
-        
-        if (front == nullptr) {
-            front = end = toAdd;
-        } else {
-            end->next = toAdd;
-            end = toAdd;
-        }
-        size++;
+    Queue(int initialCapacity = 0) {
+      capacity = initialCapacity;
+      arr = new string[capacity];
+      front = 0;
+      end = -1;
+      size = 0;
     }
     
-    void dequeue(const string& name) {
-        if (front->name == name) {
-            Node* toDelete = front;
-            front = front->next;
-            
-            if (front == nullptr) {
-                end = nullptr; 
-            }
-            
-            delete toDelete;
-            size--;
-            return;
-        }
-        
-        if (front->name != name) {
-            cout << "Error, cannot delete\n";
-        }
+    ~Queue() {
+      delete[] arr;
+    }
+    
+    void enqueue(const string& name) {
+      if (size != capacity) {
+        end = (end + 1) % capacity;
+        arr[end] = name;
+        size++;
+      } else {
+        cout << "\nFull queue, cannot insert";
+      }
+    }
+    
+    string dequeue() {
+      string item = arr[front];
+        front = (front + 1) % capacity;
+        size--;
+      
+      if (size == 0) {
+        cout << "Error, queue empty cannot delete\n";
+      }
+      
+      return item;
     }
     
     void display() {
-      Node* current = front;
-        while (current != nullptr) {
-            cout << current->name;
-            if (current->next != nullptr) {
-                cout << " -> ";
-            }
-            current = current->next;
+      int count = 0;
+      int index = front;
+      
+      cout << "\nFull: " << size << "/" << capacity << endl;
+      
+      while (count < size) {
+        cout << "" << count+1 << "."<< arr[index] << "\n";
+        index = (index + 1) % capacity;
+        count++;
         }
-        cout << endl;
     }
 };
 
 int main() {
-    Queue q;
+    int userCapacity;
+    cout << "Input queue size: ";
+    cin >> userCapacity;
     
-    q.enqueue("Adlin");
-    q.enqueue("Aliya");
-    q.enqueue("Fakri");
-    q.dequeue("Adlin");
-    q.dequeue("Fakri");
-    q.display();
+    Queue q(userCapacity);
     
+    int choice;
+    cout << "\nInput operation: \n1. Enqueue \n2. Dequeue \n3. Display";
+    cin >> choice;
+    
+    switch (choice) {
+      case 1: {
+        string input;
+        cout << "\nInput:";
+        cin >> input;
+        q.enqueue(input);
+        break;
+      }
+      
+      case 2: {
+        q.dequeue();
+        break;
+      }
+      
+      case 3:
+        q.display();
+        break;
+      
+      default:
+        cout << "\nInvalid choice" << endl;
+    }
     return 0;
 }
