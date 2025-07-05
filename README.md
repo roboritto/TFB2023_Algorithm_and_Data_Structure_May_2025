@@ -8,3 +8,4 @@ Nur Adlin Aliya bt Fakri Zaki
 |Lab 3|<a href="https://github.com/roboritto/TFB2023_Algorithm_and_Data_Structure_May_2025/blob/main/24003411_Lab3/24003411_Single">Singly</a><br><a href="https://github.com/roboritto/TFB2023_Algorithm_and_Data_Structure_May_2025/blob/main/24003411_Lab3/24003411_Double">Doubly</a>|
 |Lab 4|<a href="https://github.com/roboritto/TFB2023_Algorithm_and_Data_Structure_May_2025/blob/main/24003411_Lab4/Circular%20Single">Circular Singly</a><br><a href="https://github.com/roboritto/TFB2023_Algorithm_and_Data_Structure_May_2025/blob/main/24003411_Lab4/Circular%20Double">Circular Doubly</a>|
 |Lab 5|<a href="https://github.com/roboritto/TFB2023_Algorithm_and_Data_Structure_May_2025/blob/main/24003411_Lab5">Stack</a>|
+|Lab 6|<a href="https://github.com/roboritto/TFB2023_Algorithm_and_Data_Structure_May_2025/blob/main/24003411_Lab6">Queue</a>
